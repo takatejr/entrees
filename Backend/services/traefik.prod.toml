@@ -1,0 +1,18 @@
+[entryPoints]
+  [entryPoints.api]
+    address = ":80"
+
+  [entryPoints.apisecure]
+    address = ":443"
+
+[http.routers]
+  [http.routers.api]
+  rule = Host(`exmple.com`)
+  [http.routers.blog.tls]
+    certResolver = "myresolver"
+
+[certificatesResolvers.apiresolver.acme]
+  email = "your-email@example.com"
+  storage = "./certificates/acme.json"
+  [certificatesResolvers.apiresolver.acme.httpChallenge]
+    entryPoint = "api"
