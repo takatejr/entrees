@@ -40,9 +40,7 @@ services:
       - entrees-internal
 
   traefik:
-    build:
-      context: services
-      dockerfile: Dockerfile.traefik
+    image: traefik:2.7
     restart: unless-stopped
     ports:
       - 80:80
@@ -50,6 +48,7 @@ services:
       - 8080:8080
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./services/traefik.prod.toml:/etc/traefik/traefik.toml"
       - ./certificates:/etc/certs:ro
     labels:
       - "traefik.enable=true"
